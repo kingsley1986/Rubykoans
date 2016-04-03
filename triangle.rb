@@ -25,6 +25,22 @@ end
 class TriangleError < StandardError
 end
 
+
+class TriangleError < StandardError
+end
+
+def triangle(a, b, c)
+  sides = [a,b,c].sort
+
+  raise TriangleError if sides.first <= 0 || sides[2] >= sides[1] + sides[0]
+  return :equilateral if sides.uniq.length  == 1
+  return :isosceles if sides.uniq.length  == 2
+  :scalene
+end
+
+
+
+
   #OR
 
   #[:equilateral, :isosceles, :scalene].fetch([a,b,c].uniq.size - 1)
@@ -52,17 +68,5 @@ end
 # end
 
 #OR
-
-# class TriangleError < StandardError
-# end
-
-# def triangle(a, b, c)
-#   sides = [a,b,c].sort
-
-#   raise TriangleError if sides.first <= 0 || sides[2] >= sides[1] + sides[0]
-#   return :equilateral if sides.uniq.length  == 1
-#   return :isosceles if sides.uniq.length  == 2
-#   :scalene
-# end
 
 
