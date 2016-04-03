@@ -28,7 +28,6 @@ end
 
 class TriangleError < StandardError
 end
-
 def triangle(a, b, c)
   sides = [a,b,c].sort
 
