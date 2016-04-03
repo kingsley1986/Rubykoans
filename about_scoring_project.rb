@@ -29,9 +29,56 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# def score(dice)
+#   score = 0
+#   sorted_dice = dice.sort # Sort the rolls
+
+#   while sorted_dice.length > 0
+#     val = sorted_dice.shift
+#     if sorted_dice.length >= 2 && val == sorted_dice[0] && val == sorted_dice[1]  # a triple!
+#       score += val == 1 ? 1000 : val * 100
+#       sorted_dice.shift(2)
+#     else
+#       score += 100 if val == 1
+#       score += 50  if val == 5
+#     end
+#   end
+
+#   return score
+# end
+
+# def score(dice)
+
+#   return 0 if dice == nil
+#   score  = 0
+#   counts = [0, 0, 0, 0, 0, 0]
+#   dice.each { |roll| counts[roll-1] += 1 if (1..6) === roll } # Count valid rolls
+
+#   (1..6).each { |i| score += (i == 1) ? 1000 : i * 100 if counts[i-1] >= 3 } # Score triples
+
+#   # Score the rest
+#   score += counts[0] % 3 * 100
+#   score += counts[4] % 3 * 50
+
+#   return score
+# end
+
 def score(dice)
-  # You need to write this method
+    score = 0
+    dice.uniq.each do |number|
+        count = dice.count number
+        weight = if number == 1 then 10 else number end
+        if count >= 3
+            score += weight * 100
+            count -= 3
+        end
+        if count > 0 and number == 1 or number == 5
+            score += count * weight * 10
+        end
+    end
+    score
 end
+
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
